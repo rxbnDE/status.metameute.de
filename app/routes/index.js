@@ -3,6 +3,7 @@ var router = express.Router();
 var asyncer = require('express-async-handler');
 var debug = require('debug')('app:routes:index');
 var moment = require('moment-timezone');
+var tz = "Europe/Berlin";
 
 
 function timeSince(date) {
@@ -78,7 +79,7 @@ let getRoutes = async () => {
 				else if(history[i].value == 0) history[i].closed = true;
 				else history[i].error = true;
 				history[i].class = (history[i].value == 1) ? "open" : (history[i].value == 0 ? "closed" : "error");
-				history[i].timeFormatted = moment(new Date(history[i].time)).tz("Europe/Berlin").format("Y-MM-DD HH:mm");
+				history[i].timeFormatted = moment(new Date(history[i].time)).tz(tz).format("Y-MM-DD HH:mm");
 			}
 		}
 		else {
@@ -103,7 +104,7 @@ let getRoutes = async () => {
 	router.get('/status/spaceapi.json', asyncer(async (req, res, next) => {
 		data = await db.getCurrentState();
 		open = data.reply[0].value == 1;
-		lastchange = Math.floor(new Date(data.reply[0].time).getTime()/1000);
+		lastchange = moment(new Date(data.reply[0].time)).tz(tz).unix();
 
 		res.set('Content-Type', 'application/json; charset=utf-8');
 		json = {
@@ -136,12 +137,12 @@ let getRoutes = async () => {
 			history = history.reply;
 			for (var i = 0; i < history.length; i++) {
 				history[i].title = history[i].value == 1 ? "opened" : "closed";
-				history[i].ISODate = moment(new Date(history[i].time)).tz("Europe/Berlin").format("Y-MM-DD HH:mm");
-				history[i].guid = "https://status.metameute.de/"+Math.floor(new Date(history[i].time).getTime() / 1000);
+				history[i].ISODate = moment(new Date(history[i].time)).tz(tz).format("Y-MM-DD HH:mm");
+				history[i].guid = "https://status.metameute.de/"+moment(new Date(history[i].time)).tz(tz).unix();
 			}
 		}
 		// title, guid, ISODate
-		else history = [{title: "error", guid:"error", ISODate: moment(new Date(history[i].time)).tz("Europe/Berlin").format("Y-MM-DD HH:mm")}];
+		else history = [{title: "error", guid:"error", ISODate: moment(new Date(history[i].time)).tz(tz).format("Y-MM-DD HH:mm")}];
 		res.set('Content-Type', 'application/xml; charset=utf-8');
 		res.render('rss.pug', { history: history});
 	}));

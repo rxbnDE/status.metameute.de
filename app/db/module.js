@@ -2,6 +2,8 @@
 var mongoose = require('mongoose');
 var sanitize = require('mongo-sanitize');
 var crypto = require('crypto');
+var moment = require('moment-timezone');
+var tz = "Europe/Berlin";
 var methods = {};
 
 var db;
@@ -81,9 +83,10 @@ methods.addState = async (obj) => {
 		try {
 			reply = await state.save();
 
-			day = (obj.time) ? new Date(state.time).getDay() : new Date().getDay();
-			hour = (obj.time) ? new Date(state.time).getHours() : new Date().getHours();
-			minute = Math.floor(((obj.time) ? new Date(state.time).getMinutes() : new Date().getMinutes())/5)*5;
+			date = moment((obj.time) ? new Date(state.time) : new Date()).tz("Europe/Berlin");
+			day = date.day();
+			hour = date.hour();
+			minute = Math.floor(date.minute()/5)*5;
 
 			reply2 = await methods.initializeHeatmap();
 			reply3 = await methods.updateHeatMap(day, hour, minute, state.value);
