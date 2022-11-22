@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+rss(version="2.0")
+	block channel
+		channel
+			title MetaMeute
+			description MetaMeute Feed
+			links https://status.metameute.de/rss
+		each item in history
+			item
+				title=item.title
+				links https://status.metameute.de
+				guid=item.guid
+				pubDate=item.ISODate
+					

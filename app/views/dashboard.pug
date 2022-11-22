@@ -1,0 +1,46 @@
+- var history = history
+- var state = state
+mixin history_item(item)
+	li.status(class=item.class)
+		if item.open
+			| geöffnet
+		else if item.closed
+			| geschlossen
+		else
+			| FEHLER
+		span.time= item.timeFormatted
+doctype html
+html
+	head
+		title MetaMeute - Status
+		meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+		meta(http-equiv="refresh", content="300")
+		meta(name="viewport", content="width=device-width")
+		link(rel='stylesheet', href='/stylesheets/status-page.css')
+	body
+		header
+			h1
+				img(src="https://www.metameute.de/logos/logo.png")
+				| MetaMeute
+			h2(class=state.class)
+				| Der Space ist&nbsp;
+				span.door-state= state.state
+				br
+				.duration
+					span=state.duration
+		main
+			#heatmap
+			ul
+				each item in history
+					+history_item(item)
+		footer
+			a(href="https://git.chaotikum.org/chaotikum/nbspstatus") Style Idea
+			| &nbsp;||&nbsp;
+			a(href="/rss") RSS-Feed
+		block scripts
+			script(src="https://cdn.jsdelivr.net/npm/chart.js@^3")
+			script(src="https://cdn.jsdelivr.net/npm/moment@^2")
+			script(src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1")
+			script(src="https://cdn.plot.ly/plotly-2.16.3.min.js")
+			script(src="/js/dashboard_chart.js")
+				
