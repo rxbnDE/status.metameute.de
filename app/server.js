@@ -2,6 +2,10 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
+// moment.js - date objects
+var moment = require('moment-timezone');
+var tz = "Europe/Berlin";
+
 // run start api
 require('./bin/www')
 
@@ -13,18 +17,29 @@ job = new CronJob(
 	'15 */2 * * * *',
 	function() {
 		(async () => {
-			currentState = await db.getCurrentState()
-			day = new Date().getDay();
-			hour = new Date().getHours();
-			minute = Math.floor((new Date().getMinutes())/5)*5;
+			currentState = await db.getCurrentState();
+			
+			date = moment(new Date()).tz("Europe/Berlin");
+			day = date.day();
+			hour = date.hour();
+			minute = Math.floor(date.minute()/5)*5;
 
-			await db.initializeHeatmap();
-			reply = await db.updateHeatMap(day, hour, minute, (await db.getCurrentState()).reply[0].value);
+			initialized = await db.initializeHeatmap();
+			if (initialized.initialized) {
+				currentState = await db.getCurrentState();
 
-			console.log("updated heatmap");
+				if(currentState.reply && currentState.reply.length >= 1) {
+					reply = await db.updateHeatMap(day, hour, minute, (currentState).reply[0].value);
+				} else {
+					console.error("error updating heatmap - error getting current state");
+				}
+
+				console.log(`updated heatmap ${day}/${hour}:${minute}`);
+			} else {
+				console.log("error updating heatmap");
+			}
 		})()
 	},
 	null,
-	true,
-	'Europe/Berlin'
+	true
 );
