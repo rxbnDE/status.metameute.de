@@ -167,6 +167,7 @@ methods.initializeHeatmap = async () => {
 					hm.minute = m;
 					hm.value  = 0;
 					hm.total  = 0;
+					hm.lastUpdate = new Date((new Date())-1000*60*60*72);
 
 					await hm.save();
 				}
