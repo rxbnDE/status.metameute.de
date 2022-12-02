@@ -214,7 +214,7 @@ methods.updateHeatMap = async (day, hour, minute, value) => {
 			}
 		}).exec();
 
-		return {reply: true};
+		return {reply: hm};
 	} catch(err) {
 		return {err: err};
 	}
@@ -268,7 +268,7 @@ methods.createAuthCode = async (obj) => {
 
 	try {
 		reply = await auth.save();
-		return {reply: true};
+		return {reply: reply};
 	} catch(err) {
 		return {err: err};
 	}
