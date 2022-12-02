@@ -61,7 +61,8 @@ let getRoutes = async () => {
 	router.get('/createAuthCode', asyncer(async (req, res, next) => {
 		console.log(req.query);
 		obj = {
-			name: req.query.name
+			name: req.query.name,
+			token: req.query.token
 		};
 
 		data = await db.createAuthCode(obj);
