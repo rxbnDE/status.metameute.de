@@ -88,7 +88,7 @@ let getRoutes = async () => {
 		}
 
 		data2 = await db.getCurrentState();
-		if(data2.reply) {
+		if(data2.reply && data2.reply.length >= 1) {
 			currentState = data2.reply[0];
 			state = {
 				class: (currentState.value == 1) ? "open" : (currentState.value == 0 ? "closed" : "error"),
