@@ -76,7 +76,7 @@ methods.addState = async (obj) => {
 
 		let state = new Doorstate();
 		state.sender = mongoose.Types.ObjectId(auth_obj._id);
-		state.value = sanitize(obj.value);
+		state.value = (sanitize(obj.value) == "true" || sanitize(obj.value) == 1) ? 1 : 0;
 		if(obj.time)
 			state.time = sanitize(obj.time);
 
