@@ -234,7 +234,7 @@ methods.getHeatMap = async () => {
 	let HeatMap = models.heatmap;
 
 	try {
-		hm = await HeatMap.find().limit(2050).exec();
+		hm = await HeatMap.find({}, {_id: 0, __v: 0, lastUpdate: 0}).limit(2050).exec();
 
 		return {reply: hm};
 	} catch(err) {
