@@ -16,9 +16,6 @@ services:
       - mongodb
     build: ./app
     restart: unless-stopped
-    env_file: ./.env
-    volumes:
-        - .env:/app/.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     environment:
