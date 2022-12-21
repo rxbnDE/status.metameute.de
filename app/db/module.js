@@ -20,7 +20,7 @@ methods.connect = async () => {
 	if(typeof db !== "undefined") return;
 
 	// connect
-	mongoose.connect('mongodb://'+process.env.MONGODB_USER+':'+process.env.MONGODB_PASSWORD+'@mongodb:'+process.env.MONGODB_DOCKER_PORT+'/admin', {
+	mongoose.connect('mongodb://'+process.env.DB_USER+':'+process.env.DB_PASSWORD+'@mongodb:'+process.env.DB_PORT+'/admin', {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useFindAndModify: false,
