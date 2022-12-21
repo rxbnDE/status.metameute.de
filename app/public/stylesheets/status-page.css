@@ -7,9 +7,13 @@ body {
     padding: 0;
 }
 
+header, main, footer {
+	width: 45%;
+    margin: 2em auto 0 auto;
+}
+
 header {
   background: #fff;
-  width: 700px;
   margin: 20px auto 0;
 
   display: table;
@@ -67,7 +71,6 @@ h2.closed .door-state {
 }
 
 main {
-	width: 700px;
     margin: 2em auto 0 auto;
 }
 
@@ -127,7 +130,6 @@ li.status .time {
 
 
 footer {
-  width: 700px;
   padding-top: 2em;
   margin: 0 auto;
   text-align: right;
@@ -139,31 +141,37 @@ a {
   text-decoration: none;
   color: #4bb3f1;
 }
-
-@media screen and (max-width: 699px) and (min-width: 580px) {
-
-	header,
-	main,
-	footer {
-		width: 580px;
-	}
-}
-
-@media screen and (max-width: 579px) and (min-width: 420px) {
+@media screen and (max-width: 1199px) and (min-width: 992px) {
 
 	header,
 	main,
 	footer {
-		width: 420px;
+		width: 75%;
+	}
+}@media screen and (max-width: 991px) and (min-width: 768px) {
+
+	header,
+	main,
+	footer {
+		width: 80%;
 	}
 }
 
-@media screen and (max-width: 419px) {
+@media screen and (max-width: 767px) and (min-width: 577px) {
 
 	header,
-	main
+	main,
 	footer {
-		width: 320px;
+		width: 85%;
+	}
+}
+
+@media screen and (max-width: 575px) {
+
+	header,
+	main,
+	footer {
+		width: 95%;
 	}
 
 	header h1 {
