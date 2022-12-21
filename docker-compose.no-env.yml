@@ -15,6 +15,7 @@ services:
     depends_on:
       - mongodb
     build: ./app
+    pull_policy: build
     restart: unless-stopped
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
