@@ -4,7 +4,7 @@
 	/**
 	* Module dependencies.
 	*/
-	var appMain = require('../app');
+	var appMain = require('./app');
 	var app = await appMain.getApp();
 	var debug = require('debug')('app:server');
 	var http = require('http');

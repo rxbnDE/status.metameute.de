@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var exp = async () => {
-	router = require('./routes/index');
+	router = require('../routes/index');
 	routes = await router.routes();
 	app.use('/', routes);
 
