@@ -80,6 +80,7 @@ let getRoutes = async () => {
 				else if(history[i].value == 0) history[i].closed = true;
 				else history[i].error = true;
 				history[i].class = (history[i].value == 1) ? "open" : (history[i].value == 0 ? "closed" : "error");
+				history[i].timeTitle = moment(new Date(history[i].time)).tz(tz).format();
 				history[i].timeFormatted = moment(new Date(history[i].time)).tz(tz).format("Y-MM-DD HH:mm");
 			}
 		}

@@ -8,7 +8,7 @@ mixin history_item(item)
 			| geschlossen
 		else
 			| FEHLER
-		span.time= item.timeFormatted
+		span.time(title=item.timeTitle)= item.timeFormatted
 doctype html
 html
 	head
