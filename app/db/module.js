@@ -10,6 +10,8 @@ var db;
 var mdls = require('./models.js');
 var models;
 
+var discordBot = require('../bin/discord-bot.js');
+discordBot.startBot();
 
 /**
  * connects to db
@@ -136,6 +138,20 @@ methods.getStates = async(obj) => {
 		return {reply: data};
 	} catch(err) {
 		return {err: err};
+	}
+}
+
+/**
+ * push current state to all feeds
+ * @author Ruben Meyer
+ * @async
+ * @void
+ */
+methods.pushCurrentState = async () => {
+	cS = await methods.getCurrentState();
+	if(cS.reply && cS.reply.length >= 1) {
+		cSVal = cS.reply[0].value;
+		discordBot.sendState(cSVal);
 	}
 }
 

@@ -30,6 +30,14 @@ let getRoutes = async () => {
 	await db.connect();
 	let con = db.getConnection();
 
+	setTimeout(function () {
+		if(process.env.DISCORD_PUSH_ON_STARTUP == 1)
+			db.pushCurrentState();
+		else {
+			console.log(`do not push current state on startup ${process.env.DISCORD_PUSH_ON_STARTUP}`);
+		}
+	}, 2000);
+
 	// Default page
 	router.get('/default', asyncer(async (req, res, next) => {
 		res.render('default', { title: 'Default page' });
@@ -47,6 +55,8 @@ let getRoutes = async () => {
 			obj.time = req.query.time;
 
 		data = await db.addState(obj);
+
+		db.pushCurrentState(); // await not needed
 
 		res.send(JSON.stringify(data));
 	}));
