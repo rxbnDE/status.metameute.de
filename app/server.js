@@ -30,11 +30,14 @@ job = new CronJob(
 
 				if(currentState.reply && currentState.reply.length >= 1) {
 					reply = await db.updateHeatMap(day, hour, minute, (currentState).reply[0].value);
+					if(reply !== null) {
+						console.log(`updated heatmap ${day}/${hour}:${minute}`);
+					}
 				} else {
 					console.error("error updating heatmap - error getting current state");
 				}
 
-				console.log(`updated heatmap ${day}/${hour}:${minute}`);
+
 			} else {
 				console.log("error updating heatmap");
 			}
