@@ -47,7 +47,10 @@ let startBot = async () => {
 		console.log(`Ready! Logged in as ${e.user.tag}`);
 		client.user.setStatus('idle');
 
-		channel = client.channels.cache.find(channel => channel.name === process.env.DISCORD_CHANNEL)
+		client.channels.fetch(process.env.DISCORD_CHANNEL)
+		.then(c => {
+			channel = c
+		})
 
 
 	});
