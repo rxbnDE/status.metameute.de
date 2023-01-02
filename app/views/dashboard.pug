@@ -12,10 +12,35 @@ mixin history_item(item)
 doctype html
 html
 	head
-		title MetaMeute - Status
+		- let title = "MetaMeute - Status"
+		- let description = "Du möchtest wissen, ob zurzeit jemand in der Meute ist? Dann klick hier für den Tür-Status!"
+		- let social_img  = "#"
+		if state.class == "open"
+			- social_img = "https://status.metameute.de/images/opened.png"
+		else
+			- social_img = "https://status.metameute.de/images/closed.png"
+		title=title
 		meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
 		meta(http-equiv="refresh", content="300")
 		meta(name="viewport", content="width=device-width")
+		//- social media meta tags
+		//- Primary Meta Tags
+		meta(name="title", content=title)
+		meta(name="description", content=description)
+
+		//- Open Graph / Facebook
+		meta(property="og:type", content="website")
+		meta(property="og:url", content="https://status.metameute.de/")
+		meta(property="og:title", content=title)
+		meta(property="og:description", content=description)
+		meta(property="og:image", content=social_img)
+
+		//- Twitter
+		meta(property="twitter:card", content="summary_large_image")
+		meta(property="twitter:url", content="https://status.metameute.de/")
+		meta(property="twitter:title", content=title)
+		meta(property="twitter:description", content=description)
+		meta(property="twitter:image", content=social_img)
 		link(rel='stylesheet', href='/stylesheets/status-page.css')
 	body
 		header
